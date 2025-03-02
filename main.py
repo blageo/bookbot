@@ -1,20 +1,23 @@
+import sys
 from stats import get_num_words
 from stats import get_num_char
 
 def get_book_test(path):
-    contents = ''
-
-    with open("books/frankenstein.txt") as f:
+    with open(sys.argv[1]) as f:
         contents = f.read()
 
     return contents
 
 
 def main():
-    path_to_book="books/frankenstein.txt"
-    frankenstein_text=get_book_test(path_to_book)
-    num_words = get_num_words(frankenstein_text)
-    char_dict = get_num_char(frankenstein_text)
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    else:
+        path_to_book = sys.argv[1]
+    book_text=get_book_test(path_to_book)
+    num_words = get_num_words(book_text)
+    char_dict = get_num_char(book_text)
     sorted_dict = dict(sorted(char_dict.items(), key = lambda item: item[1], reverse = True))
 
     # Print report
